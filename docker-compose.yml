@@ -10,11 +10,22 @@ services:
       - ./data/certbot/www:/var/www/certbot:Z
     ports:
       - "443:443"
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    cap_add:
+      - CAP_NET_BIND_SERVICE
+      - CHOWN
   nginx-relay:
     image: nginx:alpine
     restart: unless-stopped
     volumes:
       - ./data/nginx-relay/nginx.conf:/etc/nginx/nginx.conf:Z
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
   certbot:
     image: certbot/certbot
     restart: unless-stopped
@@ -24,3 +35,9 @@ services:
     ports:
       - "80:80"
     entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    cap_add:
+      - CAP_NET_BIND_SERVICE
