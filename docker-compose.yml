@@ -8,6 +8,7 @@ services:
       - ./data/nginx-terminate/nginx.conf:/etc/nginx/nginx.conf:Z
       - ./data/certbot/conf:/etc/letsencrypt:Z
       - ./data/certbot/www:/var/www/certbot:Z
+    read_only: true
     ports:
       - "443:443"
     security_opt:
@@ -17,15 +18,20 @@ services:
     cap_add:
       - CAP_NET_BIND_SERVICE
       - CHOWN
+    tmpfs:
+      - /var/run:size=50M,mode=0770,noexec,nosuid,nodev
   nginx-relay:
     image: nginx:alpine
     restart: unless-stopped
     volumes:
       - ./data/nginx-relay/nginx.conf:/etc/nginx/nginx.conf:Z
+    read_only: true
     security_opt:
       - no-new-privileges:true
     cap_drop:
       - ALL
+    tmpfs:
+      - /var/run:size=50M,mode=0770,noexec,nosuid,nodev
   certbot:
     image: certbot/certbot
     restart: unless-stopped
