@@ -11,6 +11,7 @@ services:
     read_only: true
     ports:
       - "443:443"
+      - "80:80"
     security_opt:
       - no-new-privileges:true
     cap_drop:
