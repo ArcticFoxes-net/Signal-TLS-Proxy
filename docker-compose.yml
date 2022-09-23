@@ -21,6 +21,7 @@ services:
       - CHOWN
     tmpfs:
       - /var/run:size=50M,mode=0770,noexec,nosuid,nodev
+      - /var/cache/nginx:size=50M,mode=0770,noexec,nosuid,nodev
   nginx-relay:
     image: nginx:alpine
     restart: unless-stopped
