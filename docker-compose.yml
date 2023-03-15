@@ -19,6 +19,7 @@ services:
       - CHOWN
       - SETUID
       - SETGID
+      - CAP_NET_BIND_SERVICE
   nginx-relay:
     image: nginx:alpine
     restart: unless-stopped
