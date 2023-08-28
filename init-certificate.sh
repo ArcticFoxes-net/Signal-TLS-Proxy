@@ -41,6 +41,7 @@ ${DOCKER_COMPOSE_CMD} run -p 80:80 --rm --entrypoint "\
     --register-unsafely-without-email \
     $domain_args \
     --agree-tos \
+    --reuse-key \
     --force-renewal && \
     ln -fs /etc/letsencrypt/live/$domains/ /etc/letsencrypt/active\"" certbot
 echo
