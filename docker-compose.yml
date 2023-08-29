@@ -20,6 +20,7 @@ services:
       - SETUID
       - SETGID
       - CAP_NET_BIND_SERVICE
+    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; /usr/sbin/nginx -s reload; done & /usr/sbin/nginx -c /etc/nginx/nginx.conf -g \"daemon off;\"'"
   nginx-relay:
     image: nginx:alpine
     restart: unless-stopped
@@ -32,6 +33,7 @@ services:
     cap_add:
       - SETUID
       - SETGID
+    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; /usr/sbin/nginx -s reload; done & /usr/sbin/nginx -c /etc/nginx/nginx.conf -g \"daemon off;\"'"
   certbot:
     image: certbot/certbot
     restart: unless-stopped
