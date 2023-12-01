@@ -5,9 +5,9 @@ services:
     image: nginx:alpine
     restart: unless-stopped
     volumes:
-      - ./data/nginx-terminate/nginx.conf:/etc/nginx/nginx.conf:Z
-      - ./data/certbot/conf:/etc/letsencrypt:z
-      - ./data/certbot/www:/var/www/certbot:z
+      - ./data/nginx-terminate/nginx.conf:/etc/nginx/nginx.conf:ro,Z
+      - ./data/certbot/conf:/etc/letsencrypt:ro,z
+      - ./data/certbot/www:/var/www/certbot:ro,z
     ports:
       - "443:443"
       - "80:80"
@@ -25,7 +25,7 @@ services:
     image: nginx:alpine
     restart: unless-stopped
     volumes:
-      - ./data/nginx-relay/nginx.conf:/etc/nginx/nginx.conf:Z
+      - ./data/nginx-relay/nginx.conf:/etc/nginx/nginx.conf:ro,Z
     security_opt:
       - no-new-privileges:true
     cap_drop:
